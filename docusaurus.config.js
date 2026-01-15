@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -13,9 +13,9 @@ const defaultSettings = {
   breadcrumbs: true,
   showLastUpdateTime: true,
   sidebarCollapsible: true,
-//  remarkPlugins: [
-//    [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-//  ],
+  //  remarkPlugins: [
+  //    [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+  //  ],
   sidebarPath: require.resolve('./sidebars.js'),
 };
 
@@ -89,13 +89,13 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
-    docs: {
-      sidebar: {
-        hideable: false,
+      docs: {
+        sidebar: {
+          hideable: false,
+        },
       },
-    },
       navbar: {
-//        title: 'Documentation',
+        //        title: 'Documentation',
         logo: {
           alt: 'My Site Logo',
           src: 'img/rivermeadow_logo.png',
@@ -115,6 +115,10 @@ const config = {
                 to: '/docs/aws/introduction',
               },
               {
+                label: 'Amazon Web Services (AWS) - Agent',
+                to: '/docs/aws2/introduction',
+              },
+              {
                 label: 'Microsoft Azure',
                 to: '/docs/azure/introduction',
               },
@@ -128,16 +132,16 @@ const config = {
               },
             ],
           },
-        {
-          position: 'left',
-          to: '/guides',
-          label: 'Guides',
-        },
-        {
-          position: 'left',
-          to: '/demos',
-          label: 'Demos',
-        },
+          {
+            position: 'left',
+            to: '/guides',
+            label: 'Guides',
+          },
+          {
+            position: 'left',
+            to: '/demos',
+            label: 'Demos',
+          },
         ],
       },
       footer: {
