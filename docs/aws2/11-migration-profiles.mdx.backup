@@ -3,12 +3,11 @@ import TabItem from '@theme/TabItem';
 import styles from './styles.module.css';
 
 # Migration Profiles
+
 ---
 The migration profile defines the plan or configuration for migrating a workload from the source environment to the target environment.
 
-
     ![](/img/rivermeadow_migration_profile_aws.png)
-
 
 <details>
   <summary>**Placement Settings**</summary>
@@ -50,6 +49,3 @@ The migration profile defines the plan or configuration for migrating a workload
     | **IAM Role** | The AWS IAM role to associate with the target EC2 instance |
     | **Enable OS Hardening** | Whether to harden the operating system of the target EC2 instance using CIS benchmarks |
 </details>
-
-
-
