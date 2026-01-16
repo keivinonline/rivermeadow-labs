@@ -1,4 +1,4 @@
-# 1. Validate Deployed Resources
+# 2. Validate Deployed Resources
 
 ---
 
