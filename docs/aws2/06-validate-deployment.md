@@ -1,7 +1,19 @@
-# 1. Validate Cloudformation Deployment
+# 1. Validate Deployed Resources
 
 ---
 
-The following Cloudformation script ensures a fresh environment is deployed or the purpose of the guided workshop.
+### IAM Role
 
-![](/img/rivermeadow_migration_appliance.png)
+You should see the deployed IAM Role below:
+
+![](/img/rivermeadow_cloudformation_iam_role_created.png)
+
+**Copy** the ARN of the created role into a temporary text editor in preparation for the next step.
+
+### EC2 instances
+
+Once deployed, you should see the created EC2 instances below:
+
+![](/img/rivermeadow_cloudformation_ec2.png)
+
+**Copy** the IP addresses of the deployed EC2 into a temporary text editor in preparation for the next step.
