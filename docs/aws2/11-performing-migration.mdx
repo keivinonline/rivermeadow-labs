@@ -7,7 +7,50 @@ import styles from './styles.module.css';
 ---
 The migration profile defines the plan or configuration for migrating a workload from the source environment to the target environment.
 
-    ![](/img/rivermeadow_migration_profile_aws.png)
+### Windows Migration
+
+    ![](/img/rivermeadow_migrate_1.png)
+Edit the settings as shown below for:
+
+- Target Clone name
+- Instance type
+- VPC
+- Subnet
+    ![](/img/rivermeadow_migrate_2.png)
+
+For this Windows server migration, select:
+
+- Storage rightsizing down to `75GB` (Warning: 25GB free spaceis required for OS upgrade)
+- SQL upgrade
+    ![](/img/rivermeadow_migrate_3.png)
+
+Select security settings for
+
+- Disk encryption
+- IAM role
+
+    ![](/img/rivermeadow_migrate_4.png)
+
+Keep the defaul settings for `advanced settings`
+    ![](/img/rivermeadow_migrate_5.png)
+Proceed with the migration if preflight checks have passed.
+    ![](/img/rivermeadow_migrate_6.png)
+
+## RHEL Migration
+
+Repeat the same process for RHEL server with the difference in
+
+#### Optimization
+
+    ![](/img/rivermeadow_migrate_7.png)
+
+#### Modernization
+
+In this case, you could either perform OS upgrades or OS conversion.
+
+    ![](/img/rivermeadow_migrate_8.png)
+
+### Breakdown of parameters
 
 <details>
   <summary>**Placement Settings**</summary>
