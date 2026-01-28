@@ -18,6 +18,9 @@
 <details>
   <summary>**IAM Setup**</summary>
 
+  ExternalId is unique to each Rimermeadow SaaS account organization.
+  Download from portal.
+
     ```json
     {
       "AWSTemplateFormatVersion": "2010-09-09",
@@ -38,7 +41,7 @@
                   ],
                   "Condition": {
                     "StringEquals": {
-                      "sts:ExternalId": "c21dd32f-8f29-4c14-ac9c-6c7b25c3e1ca"
+                      "sts:ExternalId": "<ID_UNIQUE_TO_RM_ORG>"
                     }
                   }
                 }
@@ -173,9 +176,8 @@
 </details>
 <details>
   <summary>**Compute and Network Setup**</summary>
-  
-  TBC
 
+  [⬇ Download landingzone_cf_template.yaml](/files/landingzone_cf_template.yaml)
 </details>
 
 ## AMI Details

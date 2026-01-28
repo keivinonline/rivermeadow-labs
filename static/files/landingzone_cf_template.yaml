@@ -1,0 +1,265 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This template is used to deploy the source VPC and EC2 instances as
+  a part of the RiverMeadow Workshop. This template deploys four simulated
+  workloads in  AWS VPC for migration testing with RiverMeadow.  *WARNING* This
+  template creates resources that are billable. You will be billed for the AWS
+  resources used  if you create a stack from this template. Please remember to
+  manually delete the CloudFormation stack after  you have finished testing.
+Parameters:
+  IPRange:
+    Type: String
+    Default: 172.20.0.0/16
+    AllowedValues:
+      - 172.20.0.0/16
+      - 172.21.0.0/16
+      - 172.22.0.0/16
+      - 172.23.0.0/16
+      - 172.24.0.0/16
+      - 172.25.0.0/16
+      - 172.26.0.0/16
+      - 172.27.0.0/16
+      - 172.28.0.0/16
+      - 172.29.0.0/16
+    MinLength: 9
+    MaxLength: 18
+    Description: IP range to use for Source Instances/Servers
+    ConstraintDescription: Invalid. Please input a correct IP range in the format 172.29.253.0/24.
+  InstanceTypeWin2019Upgrade:
+    Description: The Amazon EC2 instance running Windows Server 2019.
+    Type: String
+    Default: t3.xlarge
+    AllowedValues:
+      - t3.xlarge
+    ConstraintDescription: Must be a valid EC2 instance type.
+  InstanceTypeRHEL8Upgrade:
+    Description: The Amazon EC2 instance type for the upgrade of RHEL Server.
+    Type: String
+    Default: t3.large
+    AllowedValues:
+      - t3.large
+    ConstraintDescription: Must be a valid EC2 instance type.
+
+Mappings:
+  RegionMap:
+    us-east-1:
+      AmiWin2019Upgrade: ami-0f7112b221048d700
+      AmiRHEL8Upgrade: ami-0132b7c7ece17c429
+    ap-east-2:
+      AmiWin2019Upgrade: ami-0c003808c68664a16
+      AmiRHEL8Upgrade: ami-00f38a5fcf979c319
+Resources:
+  vpcSource:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref IPRange
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: Migration-VPC
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: 6a99246b-041c-4544-9059-8ece6f92ac18
+  subnetVPCSource:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref vpcSource
+      CidrBlock: !Select
+        - 0
+        - !Cidr
+          - !Ref IPRange
+          - 256
+          - 8
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs ''
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Source-Subnet
+  subnetVPCDestination:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref vpcSource
+      CidrBlock: !Select
+        - 1
+        - !Cidr
+          - !Ref IPRange
+          - 256
+          - 8
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs ''
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Destination-Subnet
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: e883e570-5580-493a-82c7-331a6f05124e
+  rtbSource:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpcSource
+      Tags:
+        - Key: Name
+          Value: Migration-RouteTable
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: f6bdcff7-2cd4-4c5e-b5e6-10bd4848a5ab
+  igwSource:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Source-IGW
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: b612bc52-ad9f-432a-8a22-9440325d212d
+  igwSourceAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref vpcSource
+      InternetGatewayId: !Ref igwSource
+  rtigwsource:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref rtbSource
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref igwSource
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: 181fe147-edf9-461f-b84d-c0ff2ec58178
+  sourcesubnetrtbAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref rtbSource
+      SubnetId: !Ref subnetVPCSource
+  destinationsubnetrtbAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref rtbSource
+      SubnetId: !Ref subnetVPCDestination
+  sgSource:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group (firewall) protecting source machines for
+        RiverMadeow migration
+      GroupName: Source-Instances
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 445
+          ToPort: 445
+          CidrIp: !Ref IPRange
+          Description: RiverMeadow - Allow inbound traffic on port 445
+        - IpProtocol: tcp
+          FromPort: 5994
+          ToPort: 5994
+          CidrIp: !Ref IPRange
+          Description: RiverMeadow - Allow inbound traffic on port 5994
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref IPRange
+        - IpProtocol: tcp
+          FromPort: 3389
+          ToPort: 3389
+          CidrIp: !Ref IPRange
+          Description: RiverMeadow - Allow inbound traffic on port 3389 (RDP)
+        - IpProtocol: tcp
+          FromPort: 8888
+          ToPort: 8888
+          CidrIp: !Ref IPRange
+          Description: RiverMeadow - Agent download request from source servers
+      VpcId: !Ref vpcSource
+      Tags:
+        - Key: Name
+          Value: Source-SecurityGroup
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: 55386b97-5ffd-46c6-bd31-4cccddeee935
+  sgSourceIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: All Intra-VPC traffic allowed
+      GroupId: !GetAtt sgSource.GroupId
+      IpProtocol: -1
+      SourceSecurityGroupId: !GetAtt sgSource.GroupId
+
+  EC2SSMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join
+        - '-'
+        - - ec2-ssm-role
+          - !Select
+            - 2
+            - !Split
+              - /
+              - !Ref AWS::StackId
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+
+  EC2SSMInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName:  !Join
+        - '-'
+        - - ec2-ssm-instance-profile
+          - !Select
+            - 2
+            - !Split
+              - /
+              - !Ref AWS::StackId
+      Roles:
+        - !Ref EC2SSMRole
+
+  ec2Win2019Upgrade:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeWin2019Upgrade
+      IamInstanceProfile: !Ref EC2SSMInstanceProfile
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref AWS::Region
+        - AmiWin2019Upgrade
+      Tags:
+        - Key: Name
+          Value: Win2019Upgrade
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: '0'
+          GroupSet:
+            - !Ref sgSource
+          SubnetId: !Ref subnetVPCSource
+    Metadata:
+      AWS::CloudFormation::Designer:
+        id: 6522d866-0863-432b-9640-171af86d14c7
+  ec2RHEL8Upgrade:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeRHEL8Upgrade
+      IamInstanceProfile: !Ref EC2SSMInstanceProfile
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref AWS::Region
+        - AmiRHEL8Upgrade
+      Tags:
+        - Key: Name
+          Value: RHEL8Upgrade
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: '0'
+          GroupSet:
+            - !Ref sgSource
+          SubnetId: !Ref subnetVPCSource

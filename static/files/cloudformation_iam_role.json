@@ -1,0 +1,149 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "CrossAccountRoles": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::485449423330:root"
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": "c21dd32f-8f29-4c14-ac9c-6c7b25c3e1ca"
+                }
+              }
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    },
+    "CrossAccountPolicies": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "IAMCustomerPolicy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupEgress"
+              ],
+              "Resource": "arn:aws:ec2:*:*:*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "iam:ListInstanceProfiles",
+                "ssm:GetParameter",
+                "servicequotas:ListServiceQuotas",
+                "mgh:CreateProgressUpdateStream",
+                "mgh:ImportMigrationTask",
+                "mgh:NotifyMigrationTaskState",
+                "mgh:PutResourceAttributes",
+                "mgh:AssociateDiscoveredResource",
+                "mgh:ListDiscoveredResources",
+                "mgh:AssociateCreatedArtifact",
+                "discovery:ListConfigurations"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeHosts",
+                "ec2:DescribeImages",
+                "ec2:DescribeRegions",
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeConversionTasks",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeSnapshots",
+                "ec2:DescribeAddresses",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DescribeInstanceTypeOfferings",
+                "ec2:DescribeInstanceTypes",
+                "ec2:CreateSecurityGroup",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:ModifyNetworkInterfaceAttribute",
+                "ec2:CreateTags",
+                "ec2:CreateVolume",
+                "ec2:AttachVolume",
+                "ec2:DetachVolume",
+                "ec2:DeleteVolume",
+                "ec2:CreateImage",
+                "ec2:CreateSnapshot",
+                "ec2:DeleteSnapshot",
+                "ec2:DescribeSnapshots",
+                "ec2:GetConsoleScreenshot",
+                "ec2:MonitorInstances",
+                "ec2:GetConsoleOutput"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "kms:ListAliases",
+                "kms:DescribeKey"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "outposts:ListOutposts",
+                "outposts:GetOutpostInstanceTypes"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "fsx:DescribeFileSystems",
+                "fsx:DescribeVolumes"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:TerminateInstances",
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:RunInstances"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": "iam:PassRole",
+              "Resource": "*"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "CrossAccountRoles"
+          }
+        ]
+      }
+    }
+  }
+}
