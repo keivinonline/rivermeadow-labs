@@ -7,31 +7,49 @@ import styles from './styles.module.css';
 ---
 The migration profile defines the plan or configuration for migrating a workload from the source environment to the target environment.
 
-## Windows Migration
+### Windows Migration
 
-<Tabs>
-  <TabItem value="interactive" label="Interactive" default>
-  <div>
-    <script async src="https://js.storylane.io/js/v2/storylane.js"></script>
-    <div class="sl-embed">
-      <iframe loading="lazy" class="sl-demo" src="https://rivermeadow.storylane.io/demo/izmezrwprnrq?embed=inline" name="sl-embed" allow="fullscreen" allowfullscreen ></iframe>
-    </div>
-  </div>
+    ![](/img/rivermeadow_migrate_1.png)
+Edit the settings as shown below for:
 
-  </TabItem>
-<
+- Target Clone name
+- Instance type
+- VPC
+- Subnet
+    ![](/img/rivermeadow_migrate_2.png)
+
+For this Windows server migration, select:
+
+- Storage rightsizing down to `75GB` (Warning: 25GB free spaceis required for OS upgrade)
+- SQL upgrade
+    ![](/img/rivermeadow_migrate_3.png)
+
+Select security settings for
+
+- Disk encryption
+- IAM role
+
+    ![](/img/rivermeadow_migrate_4.png)
+
+Keep the defaul settings for `advanced settings`
+    ![](/img/rivermeadow_migrate_5.png)
+Proceed with the migration if preflight checks have passed.
+    ![](/img/rivermeadow_migrate_6.png)
+
 ## RHEL Migration
-<Tabs>
-  <TabItem value="interactive" label="Interactive" default>
-  <div>
-    <script async src="https://js.storylane.io/js/v2/storylane.js"></script>
-    <div class="sl-embed">
-      <iframe loading="lazy" class="sl-demo" src="https://rivermeadow.storylane.io/demo/https://rivermeadow.storylane.io/share/edg7yhkygcbp?embed=inline" name="sl-embed" allow="fullscreen" allowfullscreen ></iframe>
-    </div>
-  </div>
 
-  </TabItem>
-<
+Repeat the same process for RHEL server with the difference in
+
+#### Optimization
+
+    ![](/img/rivermeadow_migrate_7.png)
+
+#### Modernization
+
+In this case, you could either perform OS upgrades or OS conversion.
+
+    ![](/img/rivermeadow_migrate_8.png)
+
 ### Breakdown of parameters
 
 <details>

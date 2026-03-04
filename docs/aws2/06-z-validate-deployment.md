@@ -17,3 +17,9 @@ Once deployed, you should see the created EC2 instances below:
 ![](/img/rivermeadow_cloudformation_ec2.png)
 
 **Copy** the IP addresses of the deployed EC2 into a temporary text editor in preparation for the next step.
+
+### Migration Applinace
+
+The migration appliance is based on an Oracle Enterprise Linux (OEL) AMI that is shared from the RiverMeadow AWS account.
+
+![](/img/rivermeadow_migration_appliance.png)
