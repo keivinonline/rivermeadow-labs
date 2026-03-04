@@ -50,7 +50,7 @@ Mappings:
       AmiRHEL8Upgrade: ami-00f38a5fcf979c319
     # v3 0.130.8488
     ap-southeast-4:
-      AmiWin2019Upgrade: ami-00c751e0615fa3a5d
+      AmiWin2019Upgrade: ami-06be750eb216627b8
       AmiRHEL8Upgrade: ami-0251d97f38441c234
 
 Resources:
