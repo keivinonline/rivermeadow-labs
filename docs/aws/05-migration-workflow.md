@@ -1,11 +1,12 @@
 # Migration Workflow
+
 ---
 The following steps detail the general migration workflow for migrating workloads using the RiverMeadow platform.
 
 1. **Target Environment IAM Setup:** The RiverMeadow SaaS platform is granted IAM permission to the target AWS environment to enable the migration appliance deployment and target instance instantiation.
 2. **Migration Appliance Deployment:** The RiverMeadow migration appliance is deployed into the target AWS environment to enable local migration orchestration and migration log collection.
-3. **Source Worker Appliance Deployment (Optional):** For VM based or agentless migrations the RiverMeadow source worker appliance is deployed into the source VMware vSphere environment to enable snapshot based data replication to the target environment.
-4. **OS Agent Installation (Optional):** For OS or agent based migrations the RiverMeadow agent is installed on the source Windows and Linux systems that will be migrated to enable data replication and advanced optimization and modernization capabilities.
+3. **Source Worker Appliance Deployment (Optional):** For VM based migrations the RiverMeadow source worker appliance is deployed into the source VMware vSphere environment to enable snapshot based data replication to the target environment.
+4. **OS Utility Installation (Optional):** For OS or utility based migrations the RiverMeadow utility is installed on the source Windows and Linux systems that will be migrated to enable data replication and advanced optimization and modernization capabilities.
 5. **Source Onboarding:** The RiverMeadow source inventory is populated with entries of the source systems that will be migrated and the entries are grouped into "move groups" to align with waves defined during wave planning.
 6. **Initial Data Sync:** An initial migration profile is created to define where a source workload will be migrated and what additional RiverMeadow features will be used during the migration.
 7. **Incremental Data Syncs (Delta Migration):** Once the initial data sync has been performed, incremental data syncs or delta migrations can be scheduled to keep the source and target workloads as close to in sync as possible leading up to the final cutover event.
@@ -14,3 +15,4 @@ The following steps detail the general migration workflow for migrating workload
 10. **Delta Migration:** A final delta migration is performed to sync the last bits of data from the source workload to the target instance and the source workload is shutdown following the sync to prevent conflicts.
 11. **Post Cutover Events:** Once the last delta migration has been performed then any post cutover tasks such as DNS updates, security group changes, and more need to be performed.
 12. **Final Validation Testing:** With all of the migration steps completed, perform comprehensive validation testing to ensure that all applications and services are functioning correctly in the target AWS environment. Address any issues identified during testing before declaring the migration complete.
+

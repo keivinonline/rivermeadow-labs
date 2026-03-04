@@ -118,7 +118,7 @@ const config = {
                 },
               */
               {
-                label: 'Amazon Web Services (AWS) - Agent-base',
+                label: 'Amazon Web Services (AWS)',
                 to: '/docs/aws2/introduction',
               },
               /**

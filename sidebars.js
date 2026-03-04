@@ -49,7 +49,7 @@ const sidebars = {
   aws2Sidebar: [
     {
       type: 'category',
-      label: 'AWS Workshop - Agent-based',
+      label: 'AWS Workshop',
       collapsible: false,
       collapsed: false,
       items: [

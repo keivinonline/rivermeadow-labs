@@ -1,17 +1,17 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-
 # Adding Source Servers
+
 ---
 Source servers are added to the source inventory by manually adding entries or automatically using the VMware vSphere inventory integration.
 
 Adding source servers to the RiverMeadow inventory can be performed using the following methods:
 
-* **RiverMeadow UI:** Source servers for OS based migrations (agent) can be added one at a time using the RiverMeadow UI.
-* **CSV Upload:** Source servers for OS based migrations (agent) can be added in bulk by uploading a CSV file via the RiverMeadow user interface.
-* **REST API:** Source servers for OS based migrations (agent) can be added in bulk in a programattic fashion using the RiverMeadow REST API.
-* **VMware vSphere:** Source servers for VM based migrations (agentless) can be added in bulk via the RiverMeadow integration with VMware vSphere to query the vSphere virtual machines using the vSphere REST API.
+* **RiverMeadow UI:** Source servers for OS based migrations (utility) can be added one at a time using the RiverMeadow UI.
+* **CSV Upload:** Source servers for OS based migrations (utility) can be added in bulk by uploading a CSV file via the RiverMeadow user interface.
+* **REST API:** Source servers for OS based migrations (utility) can be added in bulk in a programattic fashion using the RiverMeadow REST API.
+* **VMware vSphere:** Source servers for VM based migrations can be added in bulk via the RiverMeadow integration with VMware vSphere to query the vSphere virtual machines using the vSphere REST API.
 
 Prior to adding your source servers, ensure that you meet all of the network requirements.
 
@@ -24,12 +24,11 @@ Source servers can be individually added to the source inventory using the River
 * **Store Source Credentials:** Whether the RiverMeadow agent has already been installed on the source server using a method seperate from the automated agent installation performed by the RiverMeadow platform.
 * **Username (Optional):** The username of the user account used to automate the installation of the RiverMeadow agent on the source server.
 * **Password (Optional):** The password of the user account used to automate the installation of the RiverMeadow agent on the source server.
-* **Tags:** RiverMeadow tags associated with the inventoried source server for organization or filtering purposes. 
+* **Tags:** RiverMeadow tags associated with the inventoried source server for organization or filtering purposes.
 
 :::info
 RiverMeadow tags are used only by the platform are not applied to the source or target servers.
 :::
-
 
 ![](/img/rivermeadow_add_source_preinstalled.png)
 
@@ -65,3 +64,4 @@ RiverMeadow tags are used only by the platform are not applied to the source or 
     ![](/img/rivermeadow_source_api_docs.png)
   </TabItem>
 </Tabs>
+
