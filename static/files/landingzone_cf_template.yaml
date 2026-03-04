@@ -41,12 +41,18 @@ Parameters:
 
 Mappings:
   RegionMap:
+    # outdated v2
     us-east-1:
       AmiWin2019Upgrade: ami-0f7112b221048d700
       AmiRHEL8Upgrade: ami-0132b7c7ece17c429
     ap-east-2:
       AmiWin2019Upgrade: ami-0c003808c68664a16
       AmiRHEL8Upgrade: ami-00f38a5fcf979c319
+    # v3 0.130.8488
+    ap-southeast-4:
+      AmiWin2019Upgrade: ami-00c751e0615fa3a5d
+      AmiRHEL8Upgrade: ami-0251d97f38441c234
+
 Resources:
   vpcSource:
     Type: AWS::EC2::VPC
