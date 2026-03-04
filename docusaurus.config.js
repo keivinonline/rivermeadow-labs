@@ -111,14 +111,17 @@ const config = {
                 label: 'RiverMeadow Fundamentals',
                 to: '/docs/fundamentals/introduction',
               },
-              {
-                label: 'Amazon Web Services (AWS)',
-                to: '/docs/aws/introduction',
-              },
+              /**
+                {
+                  label: 'Amazon Web Services (AWS)',
+                  to: '/docs/aws/introduction',
+                },
+              */
               {
                 label: 'Amazon Web Services (AWS) - Agent-base',
                 to: '/docs/aws2/introduction',
               },
+              /**
               {
                 label: 'Microsoft Azure',
                 to: '/docs/azure/introduction',
@@ -127,6 +130,7 @@ const config = {
                 label: 'Red Hat OpenShift',
                 to: '/docs/red-hat-openshift/introduction',
               },
+              */
               {
                 label: 'HPE Morpheus VM Essentials',
                 to: '/docs/hpe-vm-essentials/introduction',
