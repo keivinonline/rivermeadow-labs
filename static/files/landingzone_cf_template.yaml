@@ -52,6 +52,10 @@ Mappings:
     ap-southeast-4:
       AmiWin2019Upgrade: ami-06be750eb216627b8
       AmiRHEL8Upgrade: ami-0251d97f38441c234
+    ap-southeast-6:
+      AmiWin2019Upgrade: ami-0537895ac7e7945c8
+      AmiRHEL8Upgrade: ami-0daf0c67d2873fefc
+
 
 Resources:
   vpcSource:
