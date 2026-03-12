@@ -6,6 +6,12 @@ Description: This template is used to deploy the source VPC and EC2 instances as
   resources used  if you create a stack from this template. Please remember to
   manually delete the CloudFormation stack after  you have finished testing.
 Parameters:
+  SourceAZ:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: Select an AZ that supports t3 sizes (e.g., us-east-1a)
+  TargetAZ:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: Select an AZ that supports t3 sizes (e.g., us-east-1a)
   IPRange:
     Type: String
     Default: 172.20.0.0/16
@@ -79,9 +85,7 @@ Resources:
           - !Ref IPRange
           - 256
           - 8
-      AvailabilityZone: !Select
-        - 0
-        - !GetAZs ''
+      AvailabilityZone: !Ref SourceAZ
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
@@ -96,9 +100,7 @@ Resources:
           - !Ref IPRange
           - 256
           - 8
-      AvailabilityZone: !Select
-        - 0
-        - !GetAZs ''
+      AvailabilityZone: TargetAZ
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
