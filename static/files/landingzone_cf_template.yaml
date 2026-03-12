@@ -100,7 +100,7 @@ Resources:
           - !Ref IPRange
           - 256
           - 8
-      AvailabilityZone: TargetAZ
+      AvailabilityZone: !Ref TargetAZ
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
