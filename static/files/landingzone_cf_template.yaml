@@ -41,21 +41,20 @@ Parameters:
 
 Mappings:
   RegionMap:
-    # outdated v2
-    us-east-1:
-      AmiWin2019Upgrade: ami-0f7112b221048d700
-      AmiRHEL8Upgrade: ami-0132b7c7ece17c429
-    ap-east-2:
-      AmiWin2019Upgrade: ami-0c003808c68664a16
-      AmiRHEL8Upgrade: ami-00f38a5fcf979c319
     # v3 0.130.8488
+    ap-southeast-2:
+      AmiWin2019Upgrade: ami-0388344d910f3cc3f
+      AmiRHEL8Upgrade: ami-0a2c59adbefd5d990
     ap-southeast-4:
       AmiWin2019Upgrade: ami-06be750eb216627b8
       AmiRHEL8Upgrade: ami-0251d97f38441c234
     ap-southeast-6:
       AmiWin2019Upgrade: ami-0537895ac7e7945c8
       AmiRHEL8Upgrade: ami-0daf0c67d2873fefc
-
+    us-east-1:
+      AmiWin2019Upgrade: ami-0e2b687016f375dbd
+      AmiRHEL8Upgrade: ami-028dc7eb466952ff7
+ 
 
 Resources:
   vpcSource:
