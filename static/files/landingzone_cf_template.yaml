@@ -63,6 +63,9 @@ Mappings:
     ap-northeast-1:
       AmiWin2019Upgrade: ami-0ddcd705f75558b7b
       AmiRHEL8Upgrade: ami-0f5a78f0df1bc7143
+    ap-east-2:
+      AmiWin2019Upgrade: ami-0f6da7eb52e1906bc
+      AmiRHEL8Upgrade: ami-0ad459dc55be6def4
 
 
  
